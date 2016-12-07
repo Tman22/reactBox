@@ -16,7 +16,8 @@ export default class Main extends React.Component{
   storeIdea(idea) {
     // push the idea into the array 
     // push returns the lenght of the array
-    this.state.ideas.push(idea) 
+
+    this.state.ideas.push(Object.assign(idea, { id: Date.now() }))
     //after we've pushed the state 
     // we'll set the state to the current state of our array (after an idea is pushed)
     this.setState({ ideas: this.state.ideas})
@@ -44,15 +45,23 @@ const IdeasList = ({ideas}) => {
   return (
     <div className= "IdeaList"> 
       <ul>
-      { ideas.map((idea) => {
-         return <li>{idea.title}</li>
+      {ideas.map((idea) => {
+         return <Idea key={idea.id} {...idea}/>
        })
       }      
       </ul>
     </div>
-
     )
 } 
+
+const Idea = ({props}) => {
+  return (
+    <div>
+      <h3 className="IdeasListItem-title"> {title}</h3> 
+      <div className= "IdeasListItem-body">{body}</div>
+    </div>
+    )
+}
 // pure stateless function (IE just a regular function fam)
 // ultimately all you're doing is itterating through the array to display them...
 
