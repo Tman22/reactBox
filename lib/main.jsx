@@ -35,26 +35,35 @@ class CreateIdea extends React.Component{
   // CreateIdea.prototype.updateProperties = function(){} --- es5
 
   updateProperties(e){
-    console.log(e);
+    const { name, value } = e.target
+    // var name = e.target.name (if this is true it will assign the value to name)
+    // var value = e.target.value (if this is true it will assign the value to value)
+    // whats nice about this is you can just call the const 'name' and get the same value
+
+    // in order for the state to persist you have to set the state 
+    this.setState({ [name]: value })
   }
 
   render(){
     return(
       <div>
         <input 
-          type='text' 
+          type='text'
           className='CreateIdea-title' 
+          name= 'title' 
           onChange={(e)=>{
-            // the arrow function does the bind this for you
+            this.updateProperties(e);
+
+          }}  // onChange needs to get a function
+           // the arrow function does the bind this for you
               // but is more verbose
             // if we used function instead of an arrow function
               // then this 'this' wouldn't be what we want it to be
-            this.updateProperties(e);
-          }}  // onChange needs to get a function
           value={this.state.title}
         />
         <textarea 
           className='CreateIdea-body'
+          name= 'body'
           onChange={
             this.updateProperties.bind(this)
           }
