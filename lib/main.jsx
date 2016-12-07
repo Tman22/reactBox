@@ -5,7 +5,23 @@ import ReactDOM from 'react-dom';
 // ReactDOM was pulled out of the React library
 // Because we can use React in mobile, the DOM, etc
 
-class Main extends React.Component{
+export default class Main extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      ideas: [] 
+    }
+  }
+
+  storeIdea(idea) {
+    // push the idea into the array 
+    // push returns the lenght of the array
+    this.state.ideas.push(idea) 
+    //after we've pushed the state 
+    // we'll set the state to the current state of our array (after an idea is pushed)
+    this.setState({ ideas: this.state.ideas})
+  }
+
   render(){
     return(
       <div className='IdeaBox'>
@@ -13,7 +29,8 @@ class Main extends React.Component{
           <header>
             <h1>{this.props.title}</h1>
           </header>
-          <CreateIdea />
+          <CreateIdea sendIdea={this.storeIdea.bind(this)} /> 
+          <IdeasList ideas={this.state.ideas}/>
         </section>
       </div>
       // <div> !! <--- No good! Only one parent element per return
@@ -22,6 +39,22 @@ class Main extends React.Component{
 }
 
 // React has built in event listeners
+
+const IdeasList = ({ideas}) => {
+  return (
+    <div className= "IdeaList"> 
+      <ul>
+      { ideas.map((idea) => {
+         return <li>{idea.title}</li>
+       })
+      }      
+      </ul>
+    </div>
+
+    )
+} 
+// pure stateless function (IE just a regular function fam)
+// ultimately all you're doing is itterating through the array to display them...
 
 class CreateIdea extends React.Component{
   constructor(){
@@ -42,6 +75,11 @@ class CreateIdea extends React.Component{
 
     // in order for the state to persist you have to set the state 
     this.setState({ [name]: value })
+  }
+
+  handleSubmit(){
+    this.props.sendIdea(this.state) // sending the idea up to the parent function to store inside of the array
+    this.setState({ title: '', body: ''})
   }
 
   render(){
@@ -69,6 +107,13 @@ class CreateIdea extends React.Component{
           }
           value={this.state.body}
         />
+        <button className="CreateIdea-submit"
+                onClick={ () => { 
+                 this.handleSubmit()   
+                }}
+                >
+        Submit
+        </button>
       </div> 
     )
   }
