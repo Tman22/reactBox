@@ -33,7 +33,7 @@ export default class Main extends React.Component {
 
   destroy(id) {
     let ideas = this.state.ideas.filter((idea) => {
-      return idea.id !== id
+      return idea.id !== id;
     });
     this.setState({ ideas: ideas }, () => {
       localStorage.setItem('ideas', JSON.stringify(this.state.ideas));
@@ -42,6 +42,7 @@ export default class Main extends React.Component {
 
 
   render() {
+
     return (
       <div className='IdeaBox'>
         <section className='sidebar'>
@@ -50,7 +51,7 @@ export default class Main extends React.Component {
           </header>
           <CreateIdea sendIdea={this.storeIdea.bind(this)} />
           <IdeasList ideas={this.state.ideas}
-                     destroy= {this.destroy.bind(this)}/>
+                     destroy={this.destroy.bind(this)} />
         </section>
       </div>
     ) }

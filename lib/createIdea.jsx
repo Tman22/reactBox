@@ -18,7 +18,6 @@ export default class CreateIdea extends Component{
     this.setState({ title: '', body: '' });
   }
 
-  
 
   render() {
     return (
