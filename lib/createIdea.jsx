@@ -1,40 +1,38 @@
 import React, {Component} from 'react';
-
-// createIdea.jsx
-
 export default class CreateIdea extends Component{
-  constructor(){
+  constructor() {
     super();
     this.state = {
       title: '',
-      body: ''
-    }
+      body: '',
+    };
   }
 
-  updateProperties(e){
-    const { name, value } = e.target
-    this.setState({ [name]: value })
+  updateProperties(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
-  handleSubmit(){
-    this.props.sendIdea(this.state)
-    this.setState({ title: '', body: ''})
+  handleSubmit() {
+    this.props.sendIdea(this.state);
+    this.setState({ title: '', body: '' });
   }
 
-  render(){
-    return(
+  
+
+  render() {
+    return (
       <div>
-        <input 
+        <input
           type='text'
-          className='CreateIdea-title' 
-          name= 'title' 
-          onChange={(e)=>{
+          className='CreateIdea-title'
+          name= 'title'
+          onChange={(e) => {
             this.updateProperties(e);
-
-          }} 
+          }}
           value={this.state.title}
         />
-        <textarea 
+        <textarea
           className='CreateIdea-body'
           name= 'body'
           onChange={
@@ -43,13 +41,13 @@ export default class CreateIdea extends Component{
           value={this.state.body}
         />
         <button className="CreateIdea-submit"
-                onClick={ () => { 
-                 this.handleSubmit()   
+                onClick={ () => {
+                  this.handleSubmit();
                 }}
                 >
         Submit
         </button>
-      </div> 
-    )
+      </div>
+    );
   }
 }
